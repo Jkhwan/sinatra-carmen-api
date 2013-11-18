@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sinatra / Carmen API</title>
+  <link rel="stylesheet" href="/stylesheet/chosen.min.css"/>
+  <link rel="stylesheet" href="/stylesheet/app.css"/>
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script type="text/javascript" src="/javascript/chosen.jquery.min.js"></script>
+  <script type="text/javascript" src="/javascript/app.js"></script>
+</head>
+<body>
+  <select data-placeholder="Choose a Country..." class="chosen-select country">
+    <option value=""></option>
+    <% @all_countries["all_countries"].sort.each do |country| %>
+        <option value="<%= country %>"><%= country %></option>
+    <% end %>
+  </select>
+  <select class="chosen-select subregions"></select>
+</body>
+</html>

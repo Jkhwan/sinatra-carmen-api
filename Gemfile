@@ -6,6 +6,7 @@ gem "sinatra"
 gem "sinatra-contrib"
 gem "carmen"
 gem "json"
+gem "rest-client"
 
 group :development do
   gem "shotgun"

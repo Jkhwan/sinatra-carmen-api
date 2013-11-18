@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/json'
+require 'rest-client'
 require 'json'
 require 'carmen'
 
@@ -32,11 +33,26 @@ get '/countries/full_name/:code' do
   json :name => Carmen::Country.coded(params[:code]).official_name
 end
 
-get '/countries/subregions/:code' do
+get '/countries/code/:code/subregions' do
   @subregion_objs = Carmen::Country.coded(params[:code]).subregions
   @subregions = []
   @subregion_objs.each do |subregion|
     @subregions.push({name: subregion.name, code: subregion.code, type: subregion.type})
   end
   json :subregions => @subregions
+end
+
+get '/countries/name/:name/subregions' do
+  @subregion_objs = Carmen::Country.named(params[:name]).subregions
+  @subregions = []
+  @subregion_objs.each do |subregion|
+    @subregions.push({name: subregion.name, code: subregion.code, type: subregion.type})
+  end
+  json :subregions => @subregions
+end
+
+get '/' do
+  #@all_countries = Carmen::Country.all
+  @all_countries = JSON.parse(RestClient.get 'http://0.0.0.0:9393/countries')
+  erb :"index"
 end
